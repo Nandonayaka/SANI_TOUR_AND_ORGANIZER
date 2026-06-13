@@ -3,15 +3,15 @@
 @section('content')
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <div>
-        <h1 style="font-size: 2rem; font-weight: 700;">Tours</h1>
-        <p style="color: var(--text-muted);">Manage your tour destinations</p>
+        <h1 style="font-size: 2rem; font-weight: 700;">Wisata</h1>
+        <p style="color: var(--text-muted);">Kelola destinasi wisata Anda</p>
     </div>
-    <a href="{{ route('tours.create') }}" class="btn btn-primary">Add New Tour</a>
+    <a href="{{ route('tours.create') }}" class="btn btn-primary">Tambah Wisata Baru</a>
 </div>
 
 @if(session('success'))
     <div style="background: #ecfdf5; color: #065f46; padding: 1rem; border-radius: var(--radius); margin-bottom: 1.5rem; border: 1px solid #10b981;">
-        {{ session('success') }}
+        Berhasil: {{ session('success') }}
     </div>
 @endif
 
@@ -20,9 +20,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Action</th>
+                    <th>Nama</th>
+                    <th>Deskripsi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>

@@ -2,9 +2,9 @@
     <div class="pagination">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-            <span class="pagination-link" style="opacity: 0.5; cursor: not-allowed;">&laquo; Previous</span>
+            <span class="pagination-link" style="opacity: 0.5; cursor: not-allowed;">&laquo; Sebelumnya</span>
         @else
-            <a href="{{ $paginator->previousPageUrl() }}" class="pagination-link" rel="prev">&laquo; Previous</a>
+            <a href="{{ $paginator->previousPageUrl() }}" class="pagination-link" rel="prev">&laquo; Sebelumnya</a>
         @endif
 
         {{-- Pagination Elements --}}
@@ -28,9 +28,9 @@
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-            <a href="{{ $paginator->nextPageUrl() }}" class="pagination-link" rel="next">Next &raquo;</a>
+            <a href="{{ $paginator->nextPageUrl() }}" class="pagination-link" rel="next">Berikutnya &raquo;</a>
         @else
-            <span class="pagination-link" style="opacity: 0.5; cursor: not-allowed;">Next &raquo;</span>
+            <span class="pagination-link" style="opacity: 0.5; cursor: not-allowed;">Berikutnya &raquo;</span>
         @endif
     </div>
 @endif

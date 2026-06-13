@@ -2,8 +2,8 @@
 
 @section('content')
 <div style="margin-bottom: 2rem;">
-    <h1 style="font-size: 2rem; font-weight: 700;">{{ isset($schedule) ? 'Edit' : 'Create' }} Schedule</h1>
-    <a href="{{ route('schedules.index') }}" style="color: var(--primary); text-decoration: none; font-weight: 600;">&larr; Back to List</a>
+    <h1 style="font-size: 2rem; font-weight: 700;">{{ isset($schedule) ? 'Edit' : 'Tambah' }} Jadwal</h1>
+    <a href="{{ route('schedules.index') }}" style="color: var(--primary); text-decoration: none; font-weight: 600;">&larr; Kembali ke Daftar</a>
 </div>
 
 <div class="card" style="max-width: 600px; margin: 0 auto;">
@@ -12,7 +12,7 @@
         @if(isset($schedule)) @method('PUT') @endif
 
         <div style="margin-bottom: 1.5rem;">
-            <label for="tour_package_id">Select Package</label>
+            <label for="tour_package_id">Pilih Paket</label>
             <select name="tour_package_id" id="tour_package_id" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius); border: 1px solid var(--border); background: white;">
                 @foreach($packages as $p)
                     <option value="{{ $p->id }}" {{ (old('tour_package_id', $schedule->tour_package_id ?? '') == $p->id) ? 'selected' : '' }}>
@@ -25,18 +25,18 @@
 
         <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
             <div style="flex: 1;">
-                <label for="start_date">Start Date</label>
+                <label for="start_date">Tgl Berangkat</label>
                 <input type="date" name="start_date" id="start_date" value="{{ old('start_date', isset($schedule) ? \Carbon\Carbon::parse($schedule->start_date)->format('Y-m-d') : '') }}" required>
                 @error('start_date') <small style="color: red;">{{ $message }}</small> @enderror
             </div>
             <div style="flex: 1;">
-                <label for="end_date">End Date</label>
+                <label for="end_date">Tgl Pulang</label>
                 <input type="date" name="end_date" id="end_date" value="{{ old('end_date', isset($schedule) ? \Carbon\Carbon::parse($schedule->end_date)->format('Y-m-d') : '') }}" required>
                 @error('end_date') <small style="color: red;">{{ $message }}</small> @enderror
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">{{ isset($schedule) ? 'Update' : 'Create' }} Schedule</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">{{ isset($schedule) ? 'Perbarui' : 'Tambah' }} Jadwal</button>
     </form>
 </div>
 @endsection

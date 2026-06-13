@@ -3,15 +3,15 @@
 @section('content')
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <div>
-        <h1 style="font-size: 2rem; font-weight: 700;">Booking Management</h1>
-        <p style="color: var(--text-muted);">Manage your tour bookings and schedules efficiently</p>
+        <h1 style="font-size: 2rem; font-weight: 700;">Manajemen Pesanan</h1>
+        <p style="color: var(--text-muted);">Kelola pesanan tour dan jadwal keberangkatan Anda</p>
     </div>
-    <a href="{{ route('bookings.create') }}" class="btn btn-primary">Add New Booking</a>
+    <a href="{{ route('bookings.create') }}" class="btn btn-primary">Tambah Pesanan Baru</a>
 </div>
 
 @if(session('success'))
     <div style="background: #ecfdf5; color: #065f46; padding: 1rem; border-radius: var(--radius); margin-bottom: 1.5rem; border: 1px solid #10b981;">
-        {{ session('success') }}
+        Berhasil: {{ session('success') }}
     </div>
 @endif
 
@@ -20,13 +20,13 @@
         <table>
             <thead>
                 <tr>
-                    <th>Customer</th>
-                    <th>Tour & Package</th>
-                    <th>Schedule</th>
-                    <th>Persons</th>
-                    <th>Total Price</th>
+                    <th>Pelanggan</th>
+                    <th>Wisata & Paket</th>
+                    <th>Jadwal</th>
+                    <th>Orang</th>
+                    <th>Total Harga</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>

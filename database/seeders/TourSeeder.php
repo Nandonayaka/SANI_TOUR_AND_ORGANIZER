@@ -18,26 +18,26 @@ class TourSeeder extends Seeder
             ['name' => 'Admin Sani Tour', 'password' => bcrypt('password')]
         );
 
-        // 2. Create Sample Tour
+        // 2. Buat Contoh Wisata
         $tour = \App\Models\Tour::create([
-            'name' => 'Bali Cultural Trip',
-            'description' => 'A beautiful trip to explore Bali culture and beaches.',
+            'name' => 'Wisata Budaya Bali',
+            'description' => 'Perjalanan indah menjelajahi budaya dan pantai di Bali.',
         ]);
 
-        // 3. Create Package
+        // 3. Buat Paket
         $package = $tour->tourPackages()->create([
-            'name' => 'Kuta Special',
-            'description' => 'Includes hotel and transport.',
+            'name' => 'Kuta Spesial',
+            'description' => 'Termasuk hotel bintang 5 dan transportasi.',
             'price' => 2500000
         ]);
 
-        // 4. Create Schedule
+        // 4. Buat Jadwal
         $schedule = $package->schedules()->create([
             'start_date' => '2026-07-01',
             'end_date' => '2026-07-05'
         ]);
 
-        // 5. Create Booking
+        // 5. Buat Pesanan
         \App\Models\Booking::create([
             'user_id' => $user->id,
             'schedule_id' => $schedule->id,

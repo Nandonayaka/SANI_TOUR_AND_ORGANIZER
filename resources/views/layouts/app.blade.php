@@ -181,15 +181,15 @@
     <nav>
         <a href="{{ route('dashboard') }}" class="logo">SANI TOUR</a>
         <div class="nav-links">
-            <a href="{{ route('bookings.index') }}" class="pagination-link {{ request()->routeIs('bookings.*') ? 'active' : '' }}">Bookings</a>
-            <a href="{{ route('tours.index') }}" class="pagination-link {{ request()->routeIs('tours.*') ? 'active' : '' }}">Tours</a>
-            <a href="{{ route('packages.index') }}" class="pagination-link {{ request()->routeIs('packages.*') ? 'active' : '' }}">Packages</a>
-            <a href="{{ route('schedules.index') }}" class="pagination-link {{ request()->routeIs('schedules.*') ? 'active' : '' }}">Schedules</a>
-            <a href="{{ route('users.index') }}" class="pagination-link {{ request()->routeIs('users.*') ? 'active' : '' }}">Users</a>
+            <a href="{{ route('bookings.index') }}" class="pagination-link {{ request()->routeIs('bookings.*') ? 'active' : '' }}">Pesanan</a>
+            <a href="{{ route('tours.index') }}" class="pagination-link {{ request()->routeIs('tours.*') ? 'active' : '' }}">Wisata</a>
+            <a href="{{ route('packages.index') }}" class="pagination-link {{ request()->routeIs('packages.*') ? 'active' : '' }}">Paket</a>
+            <a href="{{ route('schedules.index') }}" class="pagination-link {{ request()->routeIs('schedules.*') ? 'active' : '' }}">Jadwal</a>
+            <a href="{{ route('users.index') }}" class="pagination-link {{ request()->routeIs('users.*') ? 'active' : '' }}">Pengguna</a>
             <span style="margin-left: 1rem;">{{ Auth::user()->name }}</span>
             <form action="{{ route('logout') }}" method="POST" style="display:inline">
                 @csrf
-                <button type="submit" class="btn btn-logout">Logout</button>
+                <button type="submit" class="btn btn-logout">Keluar</button>
             </form>
         </div>
     </nav>
