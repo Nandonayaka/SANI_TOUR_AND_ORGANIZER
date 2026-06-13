@@ -32,8 +32,10 @@
                 @foreach($bookings as $booking)
                     <tr>
                         <td>
-                            <div style="font-weight: 600;">{{ $booking->user->name }}</div>
-                            <div style="font-size: 0.8rem; color: var(--text-muted);">{{ $booking->user->email }}</div>
+                            <div style="font-weight: 600;">{{ $booking->customer_name }}</div>
+                            @if($booking->customer_phone)
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">{{ $booking->customer_phone }}</div>
+                            @endif
                         </td>
                         <td>
                             <div style="font-weight: 600;">{{ $booking->schedule->tourPackage->tour->name }}</div>

@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
-use App\Models\User;
 use App\Models\Schedule;
 
 class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::with(['user', 'schedule.tourPackage.tour'])
+        $bookings = Booking::with(['schedule.tourPackage.tour'])
             ->latest()
             ->paginate(10);
 
@@ -20,53 +19,53 @@ class BookingController extends Controller
 
     public function create()
     {
-        $users = User::all();
         $schedules = Schedule::with('tourPackage.tour')->get();
-        return view('bookings.create', compact('users', 'schedules'));
+        return view('bookings.create', compact('schedules'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'customer_name' => 'required|string|max:255',
+            'customer_phone' => 'nullable|string|max:20',
             'schedule_id' => 'required|exists:schedules,id',
             'total_persons' => 'required|integer|min:1',
             'status' => 'required|string',
         ]);
 
-        $schedule = Schedule::find($request->schedule_id);
+        $schedule = Schedule::findOrFail($request->schedule_id);
         $validated['total_price'] = $schedule->tourPackage->price * $request->total_persons;
 
         Booking::create($validated);
-        return redirect()->route('bookings.index')->with('success', 'Booking created successfully.');
+        return redirect()->route('bookings.index')->with('success', 'Pesanan berhasil dibuat.');
     }
 
     public function edit(Booking $booking)
     {
-        $users = User::all();
         $schedules = Schedule::with('tourPackage.tour')->get();
-        return view('bookings.edit', compact('booking', 'users', 'schedules'));
+        return view('bookings.edit', compact('booking', 'schedules'));
     }
 
     public function update(Request $request, Booking $booking)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'customer_name' => 'required|string|max:255',
+            'customer_phone' => 'nullable|string|max:20',
             'schedule_id' => 'required|exists:schedules,id',
             'total_persons' => 'required|integer|min:1',
             'status' => 'required|string',
         ]);
 
-        $schedule = Schedule::find($request->schedule_id);
+        $schedule = Schedule::findOrFail($request->schedule_id);
         $validated['total_price'] = $schedule->tourPackage->price * $request->total_persons;
 
         $booking->update($validated);
-        return redirect()->route('bookings.index')->with('success', 'Booking updated successfully.');
+        return redirect()->route('bookings.index')->with('success', 'Pesanan berhasil diperbarui.');
     }
 
     public function destroy(Booking $booking)
     {
         $booking->delete();
-        return redirect()->route('bookings.index')->with('success', 'Booking deleted successfully.');
+        return redirect()->route('bookings.index')->with('success', 'Pesanan berhasil dihapus.');
     }
 }

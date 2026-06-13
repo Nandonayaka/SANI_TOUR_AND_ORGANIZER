@@ -2,7 +2,7 @@
 
 @section('content')
 <div style="margin-bottom: 2rem;">
-    <h1 style="font-size: 2rem; font-weight: 700;">{{ isset($booking) ? 'Edit' : 'Buat' }} Pesanan</h1>
+    <h1 style="font-size: 1.5rem; font-weight: 700;">{{ isset($booking) ? 'Edit' : 'Buat' }} Pesanan</h1>
     <a href="{{ route('bookings.index') }}" style="color: var(--primary); text-decoration: none; font-weight: 600;">&larr; Kembali ke Daftar</a>
 </div>
 
@@ -12,20 +12,20 @@
         @if(isset($booking)) @method('PUT') @endif
 
         <div style="margin-bottom: 1.5rem;">
-            <label for="user_id">Pilih Pelanggan</label>
-            <select name="user_id" id="user_id" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius); border: 1px solid var(--border); background: white;">
-                @foreach($users as $user)
-                    <option value="{{ $user->id }}" {{ (old('user_id', $booking->user_id ?? '') == $user->id) ? 'selected' : '' }}>
-                        {{ $user->name }} ({{ $user->email }})
-                    </option>
-                @endforeach
-            </select>
-            @error('user_id') <small style="color: red;">{{ $message }}</small> @enderror
+            <label for="customer_name">Nama Pelanggan</label>
+            <input type="text" name="customer_name" id="customer_name" value="{{ old('customer_name', $booking->customer_name ?? '') }}" required placeholder="Contoh: Budi Santoso">
+            @error('customer_name') <small style="color: red;">{{ $message }}</small> @enderror
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+            <label for="customer_phone">Nomor Telepon (Opsional)</label>
+            <input type="text" name="customer_phone" id="customer_phone" value="{{ old('customer_phone', $booking->customer_phone ?? '') }}" placeholder="Contoh: 08123456789">
+            @error('customer_phone') <small style="color: red;">{{ $message }}</small> @enderror
         </div>
 
         <div style="margin-bottom: 1.5rem;">
             <label for="schedule_id">Pilih Jadwal</label>
-            <select name="schedule_id" id="schedule_id" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius); border: 1px solid var(--border); background: white;">
+            <select name="schedule_id" id="schedule_id" style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; background: white;">
                 @foreach($schedules as $s)
                     <option value="{{ $s->id }}" {{ (old('schedule_id', $booking->schedule_id ?? '') == $s->id) ? 'selected' : '' }}>
                         {{ $s->tourPackage->tour->name }} - {{ $s->tourPackage->name }} ({{ \Carbon\Carbon::parse($s->start_date)->format('d M Y') }})
@@ -43,15 +43,14 @@
 
         <div style="margin-bottom: 1.5rem;">
             <label for="status">Status</label>
-            <select name="status" id="status" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius); border: 1px solid var(--border); background: white;">
-                <option value="pending" {{ (old('status', $booking->status ?? '') == 'pending') ? 'selected' : '' }}>Menunggu</option>
-                <option value="confirmed" {{ (old('status', $booking->status ?? '') == 'confirmed') ? 'selected' : '' }}>Dikonfirmasi</option>
-                <option value="cancelled" {{ (old('status', $booking->status ?? '') == 'cancelled') ? 'selected' : '' }}>Dibatalkan</option>
+            <select name="status" id="status" style="width: 100%; padding: 0.5rem 0.75rem; border: 1px solid #d1d5db; border-radius: 6px; background: white;">
+                <option value="pending" {{ (old('status', $booking->status ?? '') == 'pending') ? 'selected' : '' }}>Pending</option>
+                <option value="confirmed" {{ (old('status', $booking->status ?? '') == 'confirmed') ? 'selected' : '' }}>Diterima</option>
             </select>
             @error('status') <small style="color: red;">{{ $message }}</small> @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">{{ isset($booking) ? 'Perbarui' : 'Buat' }} Pesanan</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">{{ isset($booking) ? 'Perbarui' : 'Simpan' }} Pesanan</button>
     </form>
 </div>
 @endsection

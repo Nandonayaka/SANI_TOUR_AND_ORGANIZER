@@ -39,7 +39,8 @@ class TourSeeder extends Seeder
 
         // 5. Buat Pesanan
         \App\Models\Booking::create([
-            'user_id' => $user->id,
+            'customer_name' => 'Budi Santoso',
+            'customer_phone' => '081234567890',
             'schedule_id' => $schedule->id,
             'total_persons' => 2,
             'total_price' => 5000000,
