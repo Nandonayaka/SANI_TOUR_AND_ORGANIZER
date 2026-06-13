@@ -22,6 +22,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Foto</th>
                     <th>Nama</th>
                     <th>Deskripsi</th>
                     <th>Aksi</th>
@@ -30,6 +31,15 @@
             <tbody>
                 @foreach($tours as $tour)
                     <tr>
+                        <td>
+                            @if($tour->image)
+                                <img src="{{ asset('storage/' . $tour->image) }}" alt="Foto" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                            @else
+                                <div style="width: 50px; height: 50px; background: #f3f4f6; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #d1d5db;">
+                                    <i data-lucide="image" style="width: 20px;"></i>
+                                </div>
+                            @endif
+                        </td>
                         <td style="font-weight: 600;">{{ $tour->name }}</td>
                         <td style="color: var(--text-muted); font-size: 0.875rem; max-width: 300px;">{{ Str::limit($tour->description, 100) }}</td>
                         <td>
