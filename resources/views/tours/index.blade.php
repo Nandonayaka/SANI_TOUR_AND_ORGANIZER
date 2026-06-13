@@ -6,7 +6,9 @@
         <h1 style="font-size: 2rem; font-weight: 700;">Wisata</h1>
         <p style="color: var(--text-muted);">Kelola destinasi wisata Anda</p>
     </div>
-    <a href="{{ route('tours.create') }}" class="btn btn-primary">Tambah Wisata Baru</a>
+    <a href="{{ route('tours.create') }}" class="btn btn-primary">
+        <i data-lucide="plus"></i> Tambah Wisata
+    </a>
 </div>
 
 @if(session('success'))
@@ -31,12 +33,16 @@
                         <td style="font-weight: 600;">{{ $tour->name }}</td>
                         <td style="color: var(--text-muted); font-size: 0.875rem; max-width: 300px;">{{ Str::limit($tour->description, 100) }}</td>
                         <td>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <a href="{{ route('tours.edit', $tour) }}" class="btn" style="background: #f1f5f9; color: var(--text); padding: 0.4rem 0.8rem; font-size: 0.875rem;">Edit</a>
-                                <form action="{{ route('tours.destroy', $tour) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                            <div style="display: flex; gap: 0.25rem;">
+                                <a href="{{ route('tours.edit', $tour) }}" class="btn btn-secondary btn-icon" title="Edit">
+                                    <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                                </a>
+                                <form action="{{ route('tours.destroy', $tour) }}" method="POST" onsubmit="return confirm('Hapus wisata ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-logout" style="padding: 0.4rem 0.8rem; font-size: 0.875rem;">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-icon" title="Hapus">
+                                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                    </button>
                                 </form>
                             </div>
                         </td>

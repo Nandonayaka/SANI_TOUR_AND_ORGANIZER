@@ -6,7 +6,9 @@
         <h1 style="font-size: 2rem; font-weight: 700;">Jadwal Wisata</h1>
         <p style="color: var(--text-muted);">Kelola tanggal keberangkatan tour</p>
     </div>
-    <a href="{{ route('schedules.create') }}" class="btn btn-primary">Tambah Jadwal Baru</a>
+    <a href="{{ route('schedules.create') }}" class="btn btn-primary">
+        <i data-lucide="plus"></i> Tambah Jadwal
+    </a>
 </div>
 
 @if(session('success'))
@@ -36,12 +38,16 @@
                         <td>{{ \Carbon\Carbon::parse($schedule->start_date)->format('d M Y') }}</td>
                         <td>{{ \Carbon\Carbon::parse($schedule->end_date)->format('d M Y') }}</td>
                         <td>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <a href="{{ route('schedules.edit', $schedule) }}" class="btn" style="background: #f1f5f9; color: var(--text); padding: 0.4rem 0.8rem; font-size: 0.875rem;">Edit</a>
-                                <form action="{{ route('schedules.destroy', $schedule) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                            <div style="display: flex; gap: 0.25rem;">
+                                <a href="{{ route('schedules.edit', $schedule) }}" class="btn btn-secondary btn-icon" title="Edit">
+                                    <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                                </a>
+                                <form action="{{ route('schedules.destroy', $schedule) }}" method="POST" onsubmit="return confirm('Hapus jadwal ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-logout" style="padding: 0.4rem 0.8rem; font-size: 0.875rem;">Delete</button>
+                                    <button type="submit" class="btn btn-danger btn-icon" title="Hapus">
+                                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                    </button>
                                 </form>
                             </div>
                         </td>

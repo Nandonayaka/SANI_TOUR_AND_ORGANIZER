@@ -6,7 +6,9 @@
         <h1 style="font-size: 2rem; font-weight: 700;">Pengguna</h1>
         <p style="color: var(--text-muted);">Kelola pengguna sistem</p>
     </div>
-    <a href="{{ route('users.create') }}" class="btn btn-primary">Tambah Pengguna Baru</a>
+    <a href="{{ route('users.create') }}" class="btn btn-primary">
+        <i data-lucide="plus"></i> Tambah Pengguna
+    </a>
 </div>
 
 @if(session('success'))
@@ -39,13 +41,17 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->created_at->format('d M Y') }}</td>
                         <td>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <a href="{{ route('users.edit', $user) }}" class="btn" style="background: #f1f5f9; color: var(--text); padding: 0.4rem 0.8rem; font-size: 0.875rem;">Edit</a>
+                            <div style="display: flex; gap: 0.25rem;">
+                                <a href="{{ route('users.edit', $user) }}" class="btn btn-secondary btn-icon" title="Edit">
+                                    <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                                </a>
                                 @if($user->id != auth()->id())
-                                    <form action="{{ route('users.destroy', $user) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                    <form action="{{ route('users.destroy', $user) }}" method="POST" onsubmit="return confirm('Hapus pengguna ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-logout" style="padding: 0.4rem 0.8rem; font-size: 0.875rem;">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-icon" title="Hapus">
+                                            <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                        </button>
                                     </form>
                                 @endif
                             </div>
