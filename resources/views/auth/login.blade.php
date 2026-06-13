@@ -27,11 +27,32 @@
             <div class="d-flex justify-content-between align-items-center">
                 <label class="form-label small fw-bold text-muted">KATA SANDI</label>
             </div>
-            <input type="password" name="password" class="form-control" required placeholder="••••••••">
+            <div class="position-relative">
+                <input type="password" name="password" id="password" class="form-control" required placeholder="••••••••" style="padding-right: 40px;">
+                <button type="button" class="btn btn-link position-absolute end-0 top-50 translate-middle-y text-muted border-0" onclick="togglePassword('password', this)">
+                    <i data-lucide="eye" style="width: 18px;"></i>
+                </button>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">Masuk Sekarang</button>
     </form>
+    
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('[data-lucide]');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+    </script>
     
     <div class="mt-5 text-center text-muted small border-top pt-3">
         Dikelola oleh <span class="fw-bold">Sani Tour Admin</span>
