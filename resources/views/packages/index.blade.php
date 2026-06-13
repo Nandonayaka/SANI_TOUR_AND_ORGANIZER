@@ -1,60 +1,74 @@
 @extends('layouts.app')
 
 @section('content')
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-    <div>
-        <h1 style="font-size: 2rem; font-weight: 700;">Paket Wisata</h1>
-        <p style="color: var(--text-muted);">Kelola paket untuk setiap destinasi wisata</p>
+<div class="row align-items-center mb-5">
+    <div class="col">
+        <h2 class="fw-bold m-0">Paket Wisata</h2>
+        <p class="text-muted m-0">Daftar harga dan fasilitas tur</p>
     </div>
-    <a href="{{ route('packages.create') }}" class="btn btn-primary">
-        <i data-lucide="plus"></i> Tambah Paket
-    </a>
+    <div class="col-auto">
+        <a href="{{ route('packages.create') }}" class="btn btn-primary d-flex align-items-center gap-2">
+            <i data-lucide="plus-square" style="width: 18px;"></i>
+            <span>Tambah Paket</span>
+        </a>
+    </div>
 </div>
 
 @if(session('success'))
-    <div style="background: #ecfdf5; color: #065f46; padding: 1rem; border-radius: var(--radius); margin-bottom: 1.5rem; border: 1px solid #10b981;">
-        Berhasil: {{ session('success') }}
+    <div class="alert alert-success border-0 shadow-sm d-flex align-items-center gap-3 mb-4" role="alert">
+        <div class="bg-success text-white rounded-circle p-1 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">
+            <i data-lucide="check" style="width: 16px;"></i>
+        </div>
+        <div class="fw-bold">{{ session('success') }}</div>
     </div>
 @endif
 
-<div class="card">
-    <div style="overflow-x: auto;">
-        <table>
-            <thead>
-                <tr>
-                    <th>Wisata</th>
-                    <th>Nama Paket</th>
-                    <th>Harga</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($packages as $package)
+<div class="card shadow-sm col-lg-11">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle m-0">
+                <thead>
                     <tr>
-                        <td style="font-weight: 600;">{{ $package->tour->name }}</td>
-                        <td>{{ $package->name }}</td>
-                        <td style="color: var(--primary); font-weight: 700;">Rp {{ number_format($package->price, 0, ',', '.') }}</td>
-                        <td>
-                            <div style="display: flex; gap: 0.25rem;">
-                                <a href="{{ route('packages.edit', $package) }}" class="btn btn-secondary btn-icon" title="Edit">
-                                    <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
-                                </a>
-                                <form action="{{ route('packages.destroy', $package) }}" method="POST" onsubmit="return confirm('Hapus paket ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-icon" title="Hapus">
-                                        <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
+                        <th class="ps-4">Destinasi Wisata</th>
+                        <th>Nama Paket</th>
+                        <th>Harga per Orang</th>
+                        <th class="pe-4 text-center">Opsi</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="border-top-0">
+                    @foreach($packages as $package)
+                        <tr>
+                            <td class="ps-4 fw-bold text-dark">{{ $package->tour->name }}</td>
+                            <td>
+                                <span class="badge bg-light text-dark border fw-medium px-3 py-2 rounded-3">
+                                    {{ $package->name }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-primary">Rp {{ number_format($package->price, 0, ',', '.') }}</div>
+                            </td>
+                            <td class="pe-4 text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="{{ route('packages.edit', $package) }}" class="btn btn-action btn-light text-secondary shadow-sm" title="Edit">
+                                        <i data-lucide="edit-3" style="width: 18px;"></i>
+                                    </a>
+                                    <form action="{{ route('packages.destroy', $package) }}" method="POST" onsubmit="return confirm('Hapus paket ini?')">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn btn-action btn-light text-danger shadow-sm" title="Hapus">
+                                            <i data-lucide="trash-2" style="width: 18px;"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="pagination">
-        {{ $packages->links() }}
-    </div>
+</div>
+
+<div class="mt-4 px-2">
+    {{ $packages->links() }}
 </div>
 @endsection
