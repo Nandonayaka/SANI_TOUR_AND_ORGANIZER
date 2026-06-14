@@ -3,14 +3,8 @@
 @section('content')
 <div class="row align-items-center mb-5">
     <div class="col">
-        <h2 class="fw-bold m-0">{{ isset($user) ? 'Edit Akun Staff' : 'Tambah Staff Baru' }}</h2>
-        <p class="text-muted m-0">Lengkapi data di bawah untuk {{ isset($user) ? 'memperbarui' : 'mendaftarkan' }} akses sistem</p>
-    </div>
-    <div class="col-auto">
-        <a href="{{ route('users.index') }}" class="btn btn-light d-flex align-items-center gap-2 border shadow-sm">
-            <i data-lucide="arrow-left" style="width: 18px;"></i>
-            <span>Batal</span>
-        </a>
+        <h2 class="fw-bold m-0">{{ isset($user) ? 'Sunting Staff' : 'Tambah Staff Baru' }}</h2>
+        <p class="text-muted m-0">Kelola akses sistem untuk tim internal</p>
     </div>
 </div>
 
@@ -47,12 +41,13 @@
                         @error('password') <small class="text-danger small mt-1 d-block">{{ $message }}</small> @enderror
                     </div>
 
-                    <hr class="my-4 opacity-10">
-
-                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">
-                        <i data-lucide="{{ isset($user) ? 'save' : 'plus-circle' }}" class="me-2" style="width: 18px;"></i>
-                        {{ isset($user) ? 'Simpan Perubahan' : 'Daftarkan Staff' }}
-                    </button>
+                    <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                        <a href="{{ route('users.index') }}" class="btn btn-light fw-bold text-secondary border">Batal</a>
+                        <button type="submit" class="btn btn-primary px-4 fw-bold shadow-sm">
+                            <i data-lucide="save" class="me-2" style="width: 18px;"></i>
+                            {{ isset($user) ? 'Simpan Perubahan' : 'Daftarkan Staff' }}
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

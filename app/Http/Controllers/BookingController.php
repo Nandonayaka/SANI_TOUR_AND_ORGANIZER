@@ -13,8 +13,9 @@ class BookingController extends Controller
         $bookings = Booking::with(['schedule.tourPackage.tour'])
             ->latest()
             ->paginate(10);
+        $schedules = Schedule::with('tourPackage.tour')->get();
 
-        return view('bookings.index', compact('bookings'));
+        return view('bookings.index', compact('bookings', 'schedules'));
     }
 
     public function create()

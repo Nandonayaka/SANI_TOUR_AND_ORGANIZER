@@ -11,7 +11,8 @@ class TourPackageController extends Controller
     public function index()
     {
         $packages = TourPackage::with('tour')->latest()->paginate(10);
-        return view('packages.index', compact('packages'));
+        $tours = Tour::all();
+        return view('packages.index', compact('packages', 'tours'));
     }
 
     public function create()

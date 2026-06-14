@@ -14,7 +14,7 @@ class TourSeeder extends Seeder
     {
         // 1. Create Admin
         $user = \App\Models\User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@admin.com'],
             ['name' => 'Admin Sani Tour', 'password' => bcrypt('password')]
         );
 

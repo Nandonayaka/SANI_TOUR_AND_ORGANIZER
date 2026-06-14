@@ -23,8 +23,15 @@ class TourController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Max 5MB
+        ], [
+            'name.required' => 'Nama destinasi wajib diisi.',
+            'description.required' => 'Deskripsi wajib diisi.',
+            'image.required' => 'Foto destinasi wajib diunggah.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Format gambar harus jpeg, png, atau jpg.',
+            'image.max' => 'Ukuran gambar maksimal adalah 5MB.',
         ]);
 
         if ($request->hasFile('image')) {
@@ -44,8 +51,14 @@ class TourController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+        ], [
+            'name.required' => 'Nama destinasi wajib diisi.',
+            'description.required' => 'Deskripsi wajib diisi.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Format gambar harus jpeg, png, atau jpg.',
+            'image.max' => 'Ukuran gambar maksimal adalah 5MB.',
         ]);
 
         if ($request->hasFile('image')) {

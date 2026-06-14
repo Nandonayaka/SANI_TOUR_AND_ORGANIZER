@@ -11,7 +11,8 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = Schedule::with('tourPackage.tour')->latest()->paginate(10);
-        return view('schedules.index', compact('schedules'));
+        $packages = TourPackage::with('tour')->get();
+        return view('schedules.index', compact('schedules', 'packages'));
     }
 
     public function create()

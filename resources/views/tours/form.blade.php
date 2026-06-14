@@ -3,14 +3,9 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-10 col-xl-9">
-        <div class="d-flex align-items-center gap-3 mb-5">
-            <a href="{{ route('tours.index') }}" class="btn btn-light rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 40px; height: 40px;">
-                <i data-lucide="arrow-left" style="width: 20px;"></i>
-            </a>
-            <div>
-                <h2 class="fw-bold m-0">{{ isset($tour) ? 'Edit' : 'Tambah' }} Wisata</h2>
-                <p class="text-muted m-0 small">Kelola informasi destinasi dan galeri foto</p>
-            </div>
+        <div class="mb-4">
+            <h2 class="fw-bold m-0">{{ isset($tour) ? 'Sunting' : 'Tambah' }} Wisata</h2>
+            <p class="text-muted m-0 small">Kelola informasi destinasi dan galeri foto</p>
         </div>
 
         <div class="card border-0 shadow-sm overflow-hidden">
@@ -57,17 +52,17 @@
                                 <div class="input-group">
                                     <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
                                 </div>
-                                <div class="form-text small mt-2">Maksimal ukuran file 2MB (JPG/PNG)</div>
+                                <div class="form-text small mt-2">Maksimal ukuran file 5MB (JPG/PNG)</div>
                                 @error('image') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-5 pt-3 border-top d-flex gap-2">
-                        <button type="submit" class="btn btn-primary px-5 shadow-sm">
+                    <div class="mt-5 pt-3 border-top d-flex justify-content-end gap-2">
+                        <a href="{{ route('tours.index') }}" class="btn btn-light fw-bold text-secondary border">Batal</a>
+                        <button type="submit" class="btn btn-primary px-4 shadow-sm">
                             <i data-lucide="save" style="width: 18px;" class="me-2"></i> Simpan Destinasi
-                        </a>
-                        <a href="{{ route('tours.index') }}" class="btn btn-light px-4">Kembali</a>
+                        </button>
                     </div>
                 </form>
             </div>

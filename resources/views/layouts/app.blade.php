@@ -139,6 +139,45 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
+
+        /* Modal Premium Styles */
+        .modal-content {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .modal-header {
+            border-bottom: 1px solid #f3f4f6;
+            padding: 1.5rem;
+        }
+        .modal-title {
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.5px;
+        }
+        .modal-body {
+            padding: 1.5rem;
+        }
+        .modal-footer {
+            border-top: 1px solid #f3f4f6;
+            padding: 1.25rem 1.5rem;
+        }
+        
+        /* Consistent Form Labels */
+        .form-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #4b5563;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .input-group-text {
+            background-color: #f9fafb;
+            border-color: #d1d5db;
+            color: #6b7280;
+        }
     </style>
 </head>
 <body>

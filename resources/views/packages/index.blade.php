@@ -7,10 +7,10 @@
         <p class="text-muted m-0">Daftar harga dan fasilitas tur</p>
     </div>
     <div class="col-auto">
-        <a href="{{ route('packages.create') }}" class="btn btn-primary d-flex align-items-center gap-2">
+        <button type="button" class="btn btn-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#createPackageModal">
             <i data-lucide="plus-square" style="width: 18px;"></i>
             <span>Tambah Paket</span>
-        </a>
+        </button>
     </div>
 </div>
 
@@ -23,7 +23,16 @@
     </div>
 @endif
 
-<div class="card shadow-sm col-lg-11">
+@if($errors->any())
+    <div class="alert alert-danger border-0 shadow-sm d-flex align-items-center gap-3 mb-4" role="alert">
+        <div class="bg-danger text-white rounded-circle p-1 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">
+            <i data-lucide="alert-circle" style="width: 16px;"></i>
+        </div>
+        <div class="fw-bold">Gagal menyimpan data. Periksa kembali form Anda.</div>
+    </div>
+@endif
+
+<div class="card shadow-sm col-lg-12">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover align-middle m-0">
@@ -36,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody class="border-top-0">
-                    @foreach($packages as $package)
+                    @forelse($packages as $package)
                         <tr>
                             <td class="ps-4 fw-bold text-dark">{{ $package->tour->name }}</td>
                             <td>
@@ -49,7 +58,7 @@
                             </td>
                             <td class="pe-4 text-center">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('packages.edit', $package) }}" class="btn btn-action btn-light text-secondary shadow-sm" title="Edit">
+                                    <a href="{{ route('packages.edit', $package) }}" class="btn btn-action btn-light text-secondary shadow-sm" title="Sunting">
                                         <i data-lucide="edit-3" style="width: 18px;"></i>
                                     </a>
                                     <form action="{{ route('packages.destroy', $package) }}" method="POST" onsubmit="return confirm('Hapus paket ini?')">
@@ -61,7 +70,14 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center py-5 text-muted">
+                                <i data-lucide="package-x" style="width: 48px; height: 48px;" class="mb-3 opacity-25"></i>
+                                <p class="mb-0">Belum ada paket wisata yang dibuat.</p>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -71,4 +87,69 @@
 <div class="mt-4 px-2">
     {{ $packages->links() }}
 </div>
+
+<!-- Modal Tambah Paket -->
+<div class="modal fade" id="createPackageModal" tabindex="-1" aria-labelledby="createPackageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createPackageModalLabel">
+                    <i data-lucide="package-plus" class="me-2 text-primary"></i> Tambah Paket Wisata
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('packages.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Pilih Destinasi</label>
+                        <select name="tour_id" class="form-select @error('tour_id') is-invalid @enderror" required>
+                            <option value="" selected disabled>Pilih wisata...</option>
+                            @foreach($tours as $tour)
+                                <option value="{{ $tour->id }}" {{ old('tour_id') == $tour->id ? 'selected' : '' }}>{{ $tour->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('tour_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama Paket</label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
+                            value="{{ old('name') }}" placeholder="Contoh: Paket Hemat" required>
+                        @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Harga (Rp)</label>
+                        <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" 
+                                value="{{ old('price') }}" placeholder="0" required>
+                        </div>
+                        @error('price') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mb-1">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3" placeholder="Berikan detail paket...">{{ old('description') }}</textarea>
+                        @error('description') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light fw-bold text-secondary border-0" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Paket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myModal = new bootstrap.Modal(document.getElementById('createPackageModal'));
+        myModal.show();
+    });
+</script>
+@endif
 @endsection
